@@ -17,7 +17,8 @@ If a match is found then an associated signalk path is assigned to the object an
 
 The objects are then used to generate SignalK delta objects - {path : "", values : ""];
 
-The dictionary is in a JSON format, for example:
+The dictionary is in a JSON format, for example: 
+[
 
 { 
 
@@ -42,6 +43,7 @@ The dictionary is in a JSON format, for example:
 "mmsi" : "601270800"
 }
 
+]
 The input data is received via configured data connections with type = NMEA0183 and which have a matching sentenceEvent name. The sentenceEvent name is set in the Web user interface when creating data connections and in the plugin config.
 
 The output of the plugin becomes another data source confirmed on the Dashboard under "Connection activity".
