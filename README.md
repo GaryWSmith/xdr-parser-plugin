@@ -19,12 +19,10 @@ The objects are then used to generate SignalK delta objects - {path : "", values
 
 The dictionary is in a JSON format, for example:
 
-{ "definitions" : [	{"type" : "Air temperature",
-			"data" : "temperature",
-			"units" : "C",
-			"name" : "ENV_OUTAIR_T",
-			"expression" : "(x+273.15)",
-			"sk_path" : "environment.outside.temperature" },
+{ 
+
+"definitions" : 
+[
 
 			{"type" : "WaterLevel",
 			"data" : "volume",
