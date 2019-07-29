@@ -47,17 +47,17 @@ This is an example of the dictionary as it is stored internally:
 
 The input data is received via an incoming data connection configured via the Server web UI. 
 The data connection must be of type = NMEA0183. 
-The "sentenceEvent" name is usually set to "nmea0183" so that the incoming nmea data is also sent to TCP 10110 by default. However any sentenceEvent name can be used so long as it matched within the Plugin Config.
+The "sentenceEvent" name is usually set to "nmea0183" so that the incoming nmea data is also sent to TCP 10110 by default. However any sentenceEvent name can be used so long as it matched within the Plugin Config of the xdrParser-plugin.
 The "suppress0183event" value must be set to "false". 
 
 (At the time of writing the TCP Client source type does not allow the setting of the "suppress0183event" and must be set to "false" in the servers "/~.signalk/settings.json" file.)
 
 Plugin Config
 
-The plugin config functionality in the Web UI is used to create a doctionary. In order to create working dictionary entries certain information must be known about the sensor(s) contained incoming XDR sentences. The minimum information is:
+The server plugin config functionality of the Web UI is used to create a doctionary. In order to create working dictionary entries, certain information must be known about the sensor(s) contained incoming XDR sentences. The minimum information is:
 1) the "XDR sensor identifier" contained in the 4th field of each quadruple. For example "ENV_OUTAIR_T" is the identifier in this quadruple: "C,28.69,C,ENV_OUTAIR_T"
 
-2) The units of the incoming data. Signalk uses SI units. A conversion must often be applied to incoming data. In order to do this a simple mathematical expression must be provided. In this example the incoming data in in Degrees Celcius. The conversion between Celcius and Kelvin (SI) is simply Celcius+273.15. Therefore the expression is "(x+273.15) - "x" representing the incoming data value which in this case is 28.69. The converted value of 301.83 is inserted into the data field. Similarly conversions from degrees to radians would be (x*pi/180).
+2) The units of the incoming data. Signalk uses SI units. A conversion must often be applied to incoming data. In order to do this a simple mathematical expression must be provided. In this example the incoming data in in Degrees Celcius. The conversion between Celcius and Kelvin (SI) is simply Celcius+273.15. Therefore the expression is "(x+273.15) - "x" representing the incoming data value which in this case is 28.69. The converted result of 301.83 is inserted into the data field. Similarly conversions from degrees to radians would be (x*pi/180).
 
 Some tank level systems output absolute volumes while Signalk requires a ratio of total volume (0.00 to 1.00). In this case the expression field would be used to calculate the ratio e.g. (x/225) In this case the total tank volume is 225 liters.
 
