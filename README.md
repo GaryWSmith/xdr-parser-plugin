@@ -23,8 +23,8 @@ The xdrParser-plugin splits the incoming sentence into as many objects as there 
 It then matches the name in the object (the 4th field) with the contents of the dictionary. 
 
 If a match is found then:
-1) an associated signalk path is assigned to the object 
-2) the data value is manipulated according to an associated mathematical expression also contained in the dictionary. This allows data contained in the sentence to be converted to SI units required by Signalk.
+1) An associated signalk path is assigned to the object 
+2) The data value is manipulated according to an associated mathematical expression also contained in the dictionary. This allows data contained in the sentence to be converted to SI units required by Signalk.
 3) The modified data value is set in the object.
 
 The objects are then used to generate SignalK delta objects - {path : "", values : ""];
