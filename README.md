@@ -5,19 +5,31 @@ NMEA XDR messages are used to provide sensor data in the NMEA0183 format.
 
 However, they are notoriously difficult to support because they are treated in an ad-hoc manner by many manufacturers and there is no standard with regards the naming of the sensors nor with regards the units of the data. 
 
-XDR messages can contain multiple sensors within a single sentence or they might only have one sensor.
+XDR sentences can contain multiple sensors within a single sentence or they might only have one sensor.
 
-To overcome this ad-hoc approach, each sensor contained in XDR sentences must be defined in a dictionary. 
+Examples of XDR sentences:
+$IIXDR,C,28.7,C,ENV_OUTSIDE_T,P,101400,P,ENV_ATMOS_P,H,47.38,P,ENV_OUTSIDE_H*32
+$IIXDR,C,,C,ENV_WATER_T,C,28.69,C,ENV_OUTAIR_T,P,101400,P,ENV_ATMOS_P*69
+$IIXDR,C,28.69,C,ENV_OUTSIDE_T,P,101400,P,ENV_ATMOS_P,H,47.38,P,ENV_OUTSIDE_H*0A
+$IIXDR,H,47.38,P,ENV_OUTSIDE_H*30
+$IIXDR,P,101400,P,ENV_ATMOS_P*03
 
-The xdrParser splits the incoming sentence into as many objects as there are sensors contained in the sentence.
+Each sensor's information is contained in quadruplets e.g. "C,  28.69  ,  C  ,  ENV_OUTAIR_T"
 
-It then matches the name(s) in the objects with the contents of the dictionary. 
+To overcome this somewhat ad-hoc approach, each sensors data which is contained in XDR sentences must be defined in a user defined dictionary. In xdrParser-plugin the dictionary is built up within the Plugin Config functionality.
 
-If a match is found then an associated signalk path is assigned to the object and the data value is manipulated according to an associated mathematical expression also contained in the dictionary. This allows data contained in the sentence to be converted to SI units required by Signalk.
+The xdrParser-plugin splits the incoming sentence into as many objects as there are sensors contained in the sentence.
+
+It then matches the name in the object (the 4th field) with the contents of the dictionary. 
+
+If a match is found then:
+1) an associated signalk path is assigned to the object 
+2) the data value is manipulated according to an associated mathematical expression also contained in the dictionary. This allows data contained in the sentence to be converted to SI units required by Signalk.
+3) The modified data value is set in the object.
 
 The objects are then used to generate SignalK delta objects - {path : "", values : ""];
 
-The dictionary is in a JSON format, for example: 
+This is an example of the dictionary as it is stored internally: 
 
 			{"type" : "WaterLevel",
 			"data" : "volume",
@@ -33,7 +45,29 @@ The dictionary is in a JSON format, for example:
 			"expression" : "(x/300)",
 			"sk_path" : "tanks.fuel.0.currentLevel" }
 
-The input data is received via configured data connections with type = NMEA0183 and which have a matching sentenceEvent name. The sentenceEvent name is set in the web user interface when creating data connections and in the plugin config.
+The input data is received via an incoming data connection configured via the Server web UI. 
+The data connection must be of type = NMEA0183. 
+The "sentenceEvent" name is usually set to "nmea0183" so that the incoming nmea data is also sent to TCP 10110 by default. However any sentenceEvent name can be used so long as it matched within the Plugin Config.
+The "suppress0183event" value must be set to "false". 
+
+(At the time of writing the TCP Client source type does not allow the setting of the "suppress0183event" and must be set to "false" in the servers "/~.signalk/settings.json" file.)
+
+Plugin Config
+
+The plugin config functionality in the Web UI is used to create a doctionary. In order to create working dictionary entries certain information must be known about the sensor(s) contained incoming XDR sentences. The minimum information is:
+1) the "XDR sensor identifier" contained in the 4th field of each quadruple. For example "ENV_OUTAIR_T" is the identifier in this quadruple: "C,28.69,C,ENV_OUTAIR_T"
+
+2) The units of the incoming data. Signalk uses SI units. A conversion must often be applied to incoming data. In order to do this a simple mathematical expression must be provided. In this example the incoming data in in Degrees Celcius. The conversion between Celcius and Kelvin (SI) is simply Celcius+273.15. Therefore the expression is "(x+273.15) - "x" representing the incoming data value which in this case is 28.69. The converted value of 301.83 is inserted into the data field. Similarly conversions from degrees to radians would be (x*pi/180).
+
+Some tank level systems output absolute volumes while Signalk requires a ratio of total volume (0.00 to 1.00). In this case the expression field would be used to calculate the ratio e.g. (x/225) In this case the total tank volume is 225 liters.
+
+Where the data is to be passed through unmodified, the expression used would be (x*1) or (x/1).
+
+3) In addition to having the sensor data mentioned above at hand, you need to know which signal k path is applicable for that sensor data to be mapped to. For this information see the Signalk documentation. http://signalk.org/specification/1.0.0/doc/vesselsBranch.html
+
+As mentioned above, the "sentenceEvent" name that was used in the incoming data connection configured previously must be set in the plugin. TODO
+
+Once this is all complete and checked, click on the "Submit" button. Only click it once, multiple clicks will cause the incoming XDR messages to be processed as many times. Restarting the server resumes correct operation. 
 
 The output of the plugin becomes another data source confirmed on the Dashboard under "Connection activity".
 
