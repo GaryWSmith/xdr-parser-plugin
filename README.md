@@ -1,5 +1,5 @@
 # xdrParser-plugin
-Signalk plugin to parse nmea0183 data
+Signalk plugin to parse nmea0183 XDR data
 
 NMEA XDR messages are used to provide sensor data in the NMEA0183 format.
 
