@@ -3,7 +3,7 @@ Signalk plugin to parse nmea0183 data
 
 NMEA XDR messages are used to provide sensor data in the NMEA0183 format.
 
-However, they are notoriously difficult to support because they are treated in an ad-hoc manner by many manufacturers and there is no standard with regards the naming of the sensors nor with regards the units of the data. 
+They are awkard to support because they are treated in an ad-hoc manner by many manufacturers and there is no standard with regards the naming of the sensors nor with regards the units of the data. 
 
 XDR sentences can contain multiple sensors within a single sentence or they might only have one sensor.
 
@@ -16,19 +16,32 @@ $IIXDR,P,101400,P,ENV_ATMOS_P*03
 
 Each sensor's information is contained in quadruplets e.g. "C,  28.69  ,  C  ,  ENV_OUTAIR_T"
 
-To overcome this somewhat ad-hoc approach, each sensors data which is contained in XDR sentences must be defined in a user defined dictionary. In xdrParser-plugin the dictionary is built up within the Plugin Config functionality.
+To overcome this somewhat ad-hoc approach, each sensors data which is contained in XDR sentences must be defined in a dictionary file/mechanism. In xdrParser-plugin the dictionary is built up within the Plugin Config functionality.
 
+Functionality
 The xdrParser-plugin splits the incoming sentence into as many objects as there are sensors contained in the sentence.
 
-It then matches the name in the object (the 4th field) with the contents of the dictionary. 
+It then matches the name in the object (the 4th field of the quadruple) with the contents of the dictionary. 
 
 If a match is found then:
 1) An associated signalk path is assigned to the object 
 2) The data value is manipulated according to an associated mathematical expression also contained in the dictionary. This allows data contained in the sentence to be converted to SI units required by Signalk.
 3) The modified data value is set in the object.
 
-The objects are then used to generate SignalK delta objects - {path : "", values : ""];
-
+The objects are then used to generate SignalK delta objects - 
+{path : "<dictionary defined path>", values : "<manipulated value from sentence>"]} 
+	
+Objects with an assigned path of "navigation.attitude" i.e. (Roll, Pitch and Yaw) receive special treatment as the navigation.attitude values are an object of roll, pitch and yaw values. For example:
+	
+	{
+          "path": "navigation.attitude",
+          "value": {
+            "roll": -0.0581,
+            "pitch": 0.345,
+            "yaw": 0.0012
+          }
+        }
+	
 This is an example of the dictionary as it is stored internally: 
 
 			{"type" : "WaterLevel",
@@ -45,6 +58,10 @@ This is an example of the dictionary as it is stored internally:
 			"expression" : "(x/300)",
 			"sk_path" : "tanks.fuel.0.currentLevel" }
 
+
+Input Data
+
+Configure a Data Connection.
 The input data is received via an incoming data connection configured via the Server web UI. 
 The data connection must be of type = NMEA0183. 
 The "sentenceEvent" name is usually set to "nmea0183" so that the incoming nmea data is also sent to TCP 10110 by default. However any sentenceEvent name can be used so long as it matched within the Plugin Config of the xdrParser-plugin.
@@ -65,9 +82,10 @@ Where the data is to be passed through unmodified, the expression used would be 
 
 3) In addition to having the sensor data mentioned above at hand, you need to know which signal k path is applicable for that sensor data to be mapped to. For this information see the Signalk documentation. http://signalk.org/specification/1.0.0/doc/vesselsBranch.html
 
-As mentioned above, the "sentenceEvent" name that was used in the incoming data connection configured previously must be set in the plugin. TODO
+As mentioned above, the "sentenceEvent" name that was used in the incoming data connection configured previously must be set in the plugin.
 
-Once this is all complete and checked, click on the "Submit" button. Only click it once, multiple clicks will cause the incoming XDR messages to be processed as many times. Restarting the server resumes correct operation. 
+Once this is all complete and checked, click on the "Submit" button. 
 
+Output
 The output of the plugin becomes another data source confirmed on the Dashboard under "Connection activity".
 
