@@ -1,4 +1,4 @@
-// this file is not used by the plugin, but may be used to populate the xdrParser-plugin.json file in 
+// this file is not used by the plugin, but may be used to manually populate the xdrParser-plugin.json file in 
 // the .signalk/plugin-config-data directory.
 
 { "definitions" : [	{"type" : "Air temperature",
