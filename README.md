@@ -29,7 +29,7 @@ If a match is found then:
 3) The modified data value is set in the object.
 
 The objects are then used to generate SignalK delta objects - 
-{path : "<dictionary defined path>", values : "<manipulated value from sentence>"]} 
+{path : "dictionary defined path", values : "manipulated value from sentence"]} 
 	
 Objects with an assigned path of "navigation.attitude" i.e. (Roll, Pitch and Yaw) receive special treatment as the navigation.attitude values are an object of roll, pitch and yaw values. For example:
 	
