@@ -99,7 +99,7 @@ http://localhost:3000/signalk/v1/api/vessels/self/environment/outside/pressure
 The fields after "self" should match the Signal k path that was set in your dictionary. For example "environment/outside/pressure" matches the Signalk path "environemnt.outside.pressure" 
 
 The response in this example was:
-	
+[	
 meta	
 units		"Pa"
 description	"Current outside air ambient pressure"
@@ -107,3 +107,4 @@ value		100900
 $source		"xdrParser-plugin.II"
 timestamp	"2019-07-31T21:29:10.924Z"
 sentence	"XDR"
+}
