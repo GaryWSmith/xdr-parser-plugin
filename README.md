@@ -91,3 +91,19 @@ Once this is all complete and checked, click on the "Submit" button.
 # Output
 The output of the plugin becomes just another data source to the server and confirmed on the Dashboard under "Connection activity".
 
+A quick way to check the validity of the data and that is making it through to the Signalk server is use a browser.
+Entering a url along the lines of the following in any modern browser should give you information pertinent your selected XDR input:
+
+http://localhost:3000/signalk/v1/api/vessels/self/environment/outside/pressure
+
+The fields after "self" should match the Signal k path that was set in your dictionary. For example "environment/outside/pressure" matches the Signalk path "environemnt.outside.pressure" 
+
+The response in this example was:
+	
+meta	
+units		"Pa"
+description	"Current outside air ambient pressure"
+value		100900
+$source		"xdrParser-plugin.II"
+timestamp	"2019-07-31T21:29:10.924Z"
+sentence	"XDR"
