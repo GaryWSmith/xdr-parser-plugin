@@ -70,21 +70,21 @@ The "suppress0183event" value must be set to "false".
 (At the time of writing the TCP Client source type does not allow the setting of the "suppress0183event" and must be set to "false" in the servers "/~.signalk/settings.json" file.)
 
 # Plugin Config
-The server plugin config functionality of the Web UI is used to create a dictionary. In order to create viable dictionary entries, certain information must be known about the sensor(s) contained incoming XDR sentences. 
+The first thing to do is provide the xdrParser-plugin with the details of the source of the XDR sentences. As mentioned above, the "sentenceEvent" name that was used in the incoming data connection configured previously must be set in the plugin.
+
+The server plugin config functionality of the Web UI is also used to create a dictionary. In order to create viable dictionary entries, certain information must be known about the sensor(s) contained incoming XDR sentences. 
 
 The minimum information is:
 
 1) the "XDR sensor identifier" contained in the 4th field of each quadruple. For example "ENV_OUTAIR_T" is the identifier in this quadruple: "C,28.69,C,ENV_OUTAIR_T"
 
-2) The units of the incoming data. Signalk uses SI units. A conversion must often be applied to incoming data. In order to do this a simple mathematical expression must be provided. In this example the incoming data in in Degrees Celcius. The conversion between Celcius and Kelvin (SI) is simply Celcius+273.15. Therefore the expression is "(x+273.15) - "x" representing the incoming data value which in this case is 28.69. The converted result of 301.83 is inserted into the data field. Similarly conversions from degrees to radians would be (x*pi/180).
+2) The units of the incoming data. Signalk uses SI units. A conversion must often be applied to incoming data. In order to do this a simple mathematical expression must be provided. In this example the incoming data in in Degrees Celcius. The conversion between Celcius and Kelvin (SI) is simply Celcius+273.15. Therefore the expression is "(x+273.15) - "x" representing the incoming data value which in this case is 28.69. The converted result of 301.83 is inserted into the data field. Similarly conversions from degrees to radians would have the expression (x*pi/180).
 
-Some tank level systems output absolute volumes while Signalk requires a ratio of total volume (0.00 to 1.00). In this case the expression field would be used to calculate the ratio e.g. (x/225) In this case the total tank volume is 225 liters.
+Some tank level systems output absolute volumes while Signalk requires a ratio of total volume (0.00 to 1.00). In this case the expression field would be used to calculate the ratio e.g. (x/225) In this example the total tank volume is 225 liters.
 
 Where the data is to be passed through unmodified, the expression used would be (x*1) or (x/1).
 
-3) In addition to having the sensor data mentioned above at hand, you need to know which signal k path is applicable for that sensor data to be mapped to. For this information see the Signalk documentation. http://signalk.org/specification/1.0.0/doc/vesselsBranch.html
-
-As mentioned above, the "sentenceEvent" name that was used in the incoming data connection configured previously must be set in the plugin.
+3) In addition to having the sensor data information mentioned above at hand, you need to know which signal k path is applicable for that sensor data to be mapped to. For this information see the Signalk documentation. http://signalk.org/specification/1.0.0/doc/vesselsBranch.html
 
 Once this is all complete and checked, click on the "Submit" button. 
 
