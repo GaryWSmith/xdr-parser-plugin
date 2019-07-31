@@ -18,7 +18,7 @@ Each sensor's information is contained in quadruplets e.g. "C,  28.69  ,  C  ,  
 
 To overcome this somewhat ad-hoc approach, each sensors data which is contained in XDR sentences must be defined in a dictionary file/mechanism. In xdrParser-plugin the dictionary is built up within the Plugin Config functionality.
 
-Functionality
+# Functionality
 The xdrParser-plugin splits the incoming sentence into as many objects as there are sensors contained in the sentence.
 
 It then matches the name in the object (the 4th field of the quadruple) with the contents of the dictionary. 
@@ -59,8 +59,7 @@ This is an example of the dictionary as it is stored internally:
 			"sk_path" : "tanks.fuel.0.currentLevel" }
 
 
-Input Data
-
+# Input Data
 Configure a Data Connection.
 The input data is received via an incoming data connection configured via the Server web UI. 
 The data connection must be of type = NMEA0183. 
@@ -69,8 +68,7 @@ The "suppress0183event" value must be set to "false".
 
 (At the time of writing the TCP Client source type does not allow the setting of the "suppress0183event" and must be set to "false" in the servers "/~.signalk/settings.json" file.)
 
-Plugin Config
-
+# Plugin Config
 The server plugin config functionality of the Web UI is used to create a doctionary. In order to create working dictionary entries, certain information must be known about the sensor(s) contained incoming XDR sentences. The minimum information is:
 1) the "XDR sensor identifier" contained in the 4th field of each quadruple. For example "ENV_OUTAIR_T" is the identifier in this quadruple: "C,28.69,C,ENV_OUTAIR_T"
 
@@ -86,6 +84,6 @@ As mentioned above, the "sentenceEvent" name that was used in the incoming data 
 
 Once this is all complete and checked, click on the "Submit" button. 
 
-Output
+# Output
 The output of the plugin becomes another data source confirmed on the Dashboard under "Connection activity".
 
