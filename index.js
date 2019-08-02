@@ -30,6 +30,20 @@ module.exports = function (app) {
     sentenceEventName = options.sentenceEventName	        // must match the "sentenceEvent" value in the json.settings file
     var processSentence = require('./xdrParser.js');
 
+    var mexp = require('math-expression-evaluator');		// check the expressions
+      for (let l=0; l < dictionary.definitions.length; l++){
+          var expression = dictionary.definitions[l].expression.replace(/x/g, 1); 
+          try{
+              var value = mexp.eval(expression);
+//	      console.log(value);
+	     }
+          catch(e){
+              app.setProviderError("Problem with expression: " + dictionary.definitions[l].expression + "  - " + e.message);
+  	      plugin.stop();
+              return;
+              }          
+      }
+
     xdrProcCallback = (string) => {	
 	var skDeltaObj = processSentence(string, dictionary);
 	if (skDeltaObj != null){
