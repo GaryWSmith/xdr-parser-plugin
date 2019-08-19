@@ -8,11 +8,11 @@ They are awkard to support because they are treated in an ad-hoc manner by many 
 XDR sentences can contain multiple sensors within a single sentence or they might only have one sensor.
 
 Examples of XDR sentences:
-$IIXDR,C,28.7,C,ENV_OUTSIDE_T,P,101400,P,ENV_ATMOS_P,H,47.38,P,ENV_OUTSIDE_H*32
+```$IIXDR,C,28.7,C,ENV_OUTSIDE_T,P,101400,P,ENV_ATMOS_P,H,47.38,P,ENV_OUTSIDE_H*32
 $IIXDR,C,,C,ENV_WATER_T,C,28.69,C,ENV_OUTAIR_T,P,101400,P,ENV_ATMOS_P*69
 $IIXDR,C,28.69,C,ENV_OUTSIDE_T,P,101400,P,ENV_ATMOS_P,H,47.38,P,ENV_OUTSIDE_H*0A
 $IIXDR,H,47.38,P,ENV_OUTSIDE_H*30
-$IIXDR,P,101400,P,ENV_ATMOS_P*03
+$IIXDR,P,101400,P,ENV_ATMOS_P*03```
 
 Each sensor's information is contained in quadruplets e.g. "C,  28.69  ,  C  ,  ENV_OUTAIR_T"
 
