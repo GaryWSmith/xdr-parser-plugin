@@ -79,7 +79,7 @@ The minimum information is:
 
 1) the "XDR sensor identifier" contained in the 4th field of each quadruple. For example "ENV_OUTAIR_T" is the identifier in this quadruple: "C,28.69,C,ENV_OUTAIR_T"
 
-2) The units of the incoming data. Signalk uses SI units. A conversion must often be applied to incoming data. In order to do this a simple mathematical expression must be provided. In this example the incoming data in in Degrees Celcius. The conversion between Celcius and Kelvin (SI) is simply Celcius+273.15. Therefore the expression is "(x+273.15) - "x" representing the incoming data value which in this case is 28.69. The converted result of 301.83 is inserted into the data field. Similarly conversions from degrees to radians would have the expression (x*pi/180).
+2) The units of the incoming data. Signalk uses SI units. A conversion must often be applied to incoming data. In order to do this a simple mathematical expression must be provided. In this example the incoming data in in Degrees Celcius. The conversion between Celcius and Kelvin (SI) is simply Celcius+273.15. Therefore the expression is "(x+273.15)" with "x" representing the incoming data value which in this case is 28.69. The converted result of 301.83 is inserted into the data field. Similarly conversions from degrees to radians would have the expression (x*pi/180).
 
 Some tank level systems output absolute volumes while Signalk requires a ratio of total volume (0.00 to 1.00). In this case the expression field would be used to calculate the ratio e.g. (x/225) In this example the total tank volume is 225 liters.
 
