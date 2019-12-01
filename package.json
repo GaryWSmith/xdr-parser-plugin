@@ -9,6 +9,7 @@
   "keywords": [
     "signalk-node-server-plugin"
   ],
+  "repository": "https://github.com/GaryWSmith/xdrParser-plugin",
   "author": "Gary Smith",
   "license": "ISC",
   "dependencies": {
