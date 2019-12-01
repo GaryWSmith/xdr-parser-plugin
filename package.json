@@ -1,6 +1,6 @@
 {
-  "name": "xdrparser-plugin",
-  "version": "1.0.1",
+  "name": "xdr-parser-plugin",
+  "version": "1.0.2",
   "description": "This plugin parses XDR sentences which are defined in the Plugin Config",
   "main": "index.js",
   "scripts": {
