@@ -1,6 +1,6 @@
 {
   "name": "xdr-parser-plugin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "This plugin parses XDR sentences which are defined in the Plugin Config",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   "keywords": [
     "signalk-node-server-plugin"
   ],
-  "repository": "https://github.com/GaryWSmith/xdrParser-plugin",
+  "repository": "https://github.com/GaryWSmith/xdr-parser-plugin",
   "author": "Gary Smith",
   "license": "ISC",
   "dependencies": {
