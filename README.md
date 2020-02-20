@@ -76,7 +76,7 @@ The "suppress0183event" value must be set to "false".
 
 # Plugin Config
 
-NB BEFORE CONTINUING VERIFY THAT THE INCOMING DATA IS VISIBLE TO THE PLUGIN (check TCP port 10110 if you have selected "nmea0183" as the sentenceEvent above. 
+NB BEFORE CONTINUING VERIFY THAT THE INCOMING DATA IS VISIBLE TO THE PLUGIN (check TCP port 10110 if you have selected "nmea0183" as the sentenceEvent above). 
 
 The first thing to do is provide the xdrParser-plugin with the details of the source of the XDR sentences. As mentioned above, the "sentenceEvent" name that was used in the incoming data connection configured previously must be set in the plugin.
 
