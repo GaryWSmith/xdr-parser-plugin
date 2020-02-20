@@ -68,7 +68,7 @@ NB!! The plugin cannot process messages that it does not see. The internal Signa
 The input data is received via an incoming data connection configured via the Server web UI. 
 The data connection must be of type = NMEA0183. 
 
-The "sentenceEvent" name is usually set to "nmea0183" so that the incoming nmea data is also sent to TCP 10110 by default. However any sentenceEvent name can be used so long as it matched within the Plugin Config of the xdrParser-plugin. The default "nmea0183" is SRTRONGLY ADVISED in order to have access to the messages on TCP port 10110 for verification.
+The "sentenceEvent" name is usually set to "nmea0183" so that the incoming nmea data is also sent to TCP 10110 by default. However any sentenceEvent name can be used so long as it matched within the Plugin Config of the xdrParser-plugin. The default "nmea0183" is STRONGLY ADVISED in order to have access to the messages on TCP port 10110 for verification.
 
 The "suppress0183event" value must be set to "false". 
 
@@ -76,7 +76,7 @@ The "suppress0183event" value must be set to "false".
 
 # Plugin Config
 
-NB BEFORE CONTINUING VERIFY THAT THE INCOMING DATA IS VISIBLE TO THE PLUGIN (check TCP port 10110 for your raw XDR messages if you have selected "nmea0183" as the sentenceEvent above). 
+NB BEFORE CONTINUING, VERIFY THAT THE INCOMING DATA IS VISIBLE TO THE PLUGIN (check TCP port 10110 for your raw XDR messages if you have selected "nmea0183" as the sentenceEvent above). 
 
 The first thing to do is provide the xdrParser-plugin with the details of the source of the XDR sentences. As mentioned above, the "sentenceEvent" name that was used in the incoming data connection configured previously must be set in the plugin.
 
