@@ -63,14 +63,21 @@ This is an example of the dictionary as it is stored internally:
 # Input Data
 Configure a Data Connection.
 
+NB!! The plugin cannot process messages that it does not see. The internal SihnalK sentenceEvent is the means for the plugin to see incoming XDR data. !!!! 
+
 The input data is received via an incoming data connection configured via the Server web UI. 
 The data connection must be of type = NMEA0183. 
-The "sentenceEvent" name is usually set to "nmea0183" so that the incoming nmea data is also sent to TCP 10110 by default. However any sentenceEvent name can be used so long as it matched within the Plugin Config of the xdrParser-plugin.
+
+The "sentenceEvent" name is usually set to "nmea0183" so that the incoming nmea data is also sent to TCP 10110 by default. However any sentenceEvent name can be used so long as it matched within the Plugin Config of the xdrParser-plugin. The default "nmea0183" is SRTRONGLY ADVISED in order to have access to the messages on TCP port 10110 for verification.
+
 The "suppress0183event" value must be set to "false". 
 
 (At the time of writing the TCP Client source type does not allow the setting of the "suppress0183event" and must be set to "false" in the servers "/~.signalk/settings.json" file.)
 
 # Plugin Config
+
+NB BEFORE CONTINUING VERIFY THAT THE INCOMING DATA IS VISIBLE TO THE PLUGIN (check TCP port 10110 if you have selected "nmea0183" as the sentenceEvent above. 
+
 The first thing to do is provide the xdrParser-plugin with the details of the source of the XDR sentences. As mentioned above, the "sentenceEvent" name that was used in the incoming data connection configured previously must be set in the plugin.
 
 The server plugin config functionality of the Web UI is also used to create a dictionary. In order to create viable dictionary entries, certain information must be known about the sensor(s) contained incoming XDR sentences. 
