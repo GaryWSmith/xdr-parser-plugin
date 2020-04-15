@@ -70,7 +70,9 @@ var mexp = require('math-expression-evaluator');  // npm install math-expression
         objArr[j].sk_path = dictionary.definitions[l].sk_path;
         var expression = objArr[j].expression.replace(/x/g, objArr[j].data); 
         var value = mexp.eval(expression); 
-        objArr[j].data = value.toFixed(2);			 // and update the sensor data based on the expression
+        objArr[j].decimal = dictionary.definitions[l].decimal;
+        var decimal = objArr[j].decimal;
+        objArr[j].data = value.toFixed(decimal);			 // and update the sensor data based on the expression
         }
   }
 };

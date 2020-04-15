@@ -109,6 +109,12 @@ module.exports = function (app) {
               description: 'A mathematical expression to convert this sensor data (2nd field) into SI units',
 	      default: '(x+273.15)'
             },
+            decimal: {
+              type: 'string',
+              title: 'Fixed decimal',
+              description: 'Output with fixed decimals',
+	      default: '2'
+            },
             sk_path: {
               type: 'string',
               title: 'Signalk Path ',
