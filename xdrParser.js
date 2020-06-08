@@ -72,7 +72,7 @@ var mexp = require('math-expression-evaluator');  // npm install math-expression
         var value = mexp.eval(expression); 
         objArr[j].decimal = dictionary.definitions[l].decimal;
         var decimal = objArr[j].decimal;
-        objArr[j].data = value.toFixed(decimal);			 // and update the sensor data based on the expression
+        objArr[j].data = Number(value.toFixed(decimal));			 // and update the sensor data based on the expression
         }
   }
 };
